@@ -12,14 +12,21 @@ namespace FRCMatchNotifications.Controllers
     public class HomeController : Controller
     {
         public ActionResult Index()
-        {
-            List<string> test = new List<string>();
-            test = DataAccess.GetNumbersForTeams("frc7021");
-            int test2 = DataAccess.InsertNumberForTeam("5555555555", "frc7021");
-
-            Console.WriteLine(test);
-            
+        {            
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(string number, string team)
+        {
+            try
+            {
+                DataAccess.InsertNumberForTeam(number, team);
+            } catch(Exception e)
+            {
+                throw e;
+            }
+            return View(new Models.HomeModel(number, team));
         }
 
         public ActionResult About()

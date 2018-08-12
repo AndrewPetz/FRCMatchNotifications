@@ -2,30 +2,42 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+@model FRCMatchNotifications.Models.HomeModel
+@if (String.IsNullOrEmpty(Model.number) && String.IsNullOrEmpty(Model.team))
+{
+    <div class="jumbotron">
+        <h1>FRC Notifications</h1>
+        <p class="lead">Want to get near-realtime notifications for your favorite FRC team(s)? Enter your phone number and the team you want to follow below, and you'll get notifications when their matches start and end.</p>
+    </div>
 
-<div class="row">
-    <div class="col">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div class="row">
+        <div class="col">
+
+            <form id="frmMain" method="post">
+                <div class="form-group">
+                    <label for="txtPhoneNumber">Phone Number</label>
+                    <input type="tel" class="form-control" id="txtPhoneNumber" aria-describedby="phoneHelp" placeholder="Enter phone number">
+                    <small id="phoneHelp" class="form-text text-muted">We'll never share your phone number with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="txtTeamNumber">Team Number</label>
+                    <input type="text" class="form-control" id="txtTeamNumber" placeholder="Enter team number">
+                </div>
+                <button type="submit" class="btn btn-primary">Send me notifications!</button>
+            </form>
+
+        </div>
     </div>
-    <div class="col">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+}
+else if ((!String.IsNullOrEmpty(Model.number) && String.IsNullOrEmpty(Model.team)) || (String.IsNullOrEmpty(Model.number) && !String.IsNullOrEmpty(Model.team)))
+{
+    <h1>Todo: implement warning that something went wrong</h1>
+}
+else
+{
+    <div class="row">
+        <div class="col">
+            <h1>Congratulations, you've signed up for some awesome FRC notifications. I'm sure team @Model.team appreciates your support.</h1>
+        </div>
     </div>
-    <div class="col">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+}
