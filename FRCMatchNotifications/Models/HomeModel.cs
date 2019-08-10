@@ -7,13 +7,13 @@ namespace FRCMatchNotifications.Models
 {
     public class HomeModel
     {
-        public string number { get; set; }
-        public string team { get; set; }
+        public string Number { get; set; }
+        public string Team { get; set; }
 
         public HomeModel(string number, string team)
         {
-            this.number = number;
-            this.team = team;
+            this.Number = number;
+            this.Team = team;
         }
     }
 }

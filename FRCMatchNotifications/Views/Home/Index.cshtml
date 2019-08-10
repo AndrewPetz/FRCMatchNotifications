@@ -1,9 +1,10 @@
-﻿@{
+﻿@model FRCMatchNotifications.Models.HomeModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 
-@model FRCMatchNotifications.Models.HomeModel
-@if (String.IsNullOrEmpty(Model.number) && String.IsNullOrEmpty(Model.team))
+@if (String.IsNullOrEmpty(Model.Number) && String.IsNullOrEmpty(Model.Team))
 {
     <div class="jumbotron">
         <h1>FRC Notifications</h1>
@@ -13,7 +14,13 @@
     <div class="row">
         <div class="col">
 
-            <form id="frmMain" method="post">
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+            {
+                @Html.TextBoxFor(model => model.Number, new { placeholder = "Enter phone number.", @class = "form-control" })
+                @Html.TextBoxFor(model => model.Team, new { placeholder = "Enter team number.", @class = "form-control" })
+                <input type="submit" id="btnSubmit" class="btn btn-primary" />
+            }
+            @*<form id="frmMain" method="post">
                 <div class="form-group">
                     <label for="txtPhoneNumber">Phone Number</label>
                     <input type="tel" class="form-control" id="txtPhoneNumber" aria-describedby="phoneHelp" placeholder="Enter phone number">
@@ -24,12 +31,12 @@
                     <input type="text" class="form-control" id="txtTeamNumber" placeholder="Enter team number">
                 </div>
                 <button type="submit" class="btn btn-primary">Send me notifications!</button>
-            </form>
+            </form>*@
 
         </div>
     </div>
 }
-else if ((!String.IsNullOrEmpty(Model.number) && String.IsNullOrEmpty(Model.team)) || (String.IsNullOrEmpty(Model.number) && !String.IsNullOrEmpty(Model.team)))
+else if ((!String.IsNullOrEmpty(Model.Number) && String.IsNullOrEmpty(Model.Team)) || (String.IsNullOrEmpty(Model.Number) && !String.IsNullOrEmpty(Model.Team)))
 {
     <h1>Todo: implement warning that something went wrong</h1>
 }
@@ -37,7 +44,10 @@ else
 {
     <div class="row">
         <div class="col">
-            <h1>Congratulations, you've signed up for some awesome FRC notifications. I'm sure team @Model.team appreciates your support.</h1>
+            <h1>Congratulations, you've signed up for some awesome FRC notifications. I'm sure team @Model.Team appreciates your support.</h1>
+            <form action="/">
+                <input type="submit" class="btn btn-primary" value="Go back" />
+            </form>
         </div>
     </div>
 }

@@ -11,22 +11,24 @@ namespace FRCMatchNotifications.Controllers
 {
     public class HomeController : Controller
     {
+        [HttpGet]
         public ActionResult Index()
-        {            
-            return View();
+        {
+            return View(new Models.HomeModel("",""));
         }
 
         [HttpPost]
-        public ActionResult Index(string number, string team)
+        public ActionResult Index(string Number, string Team)
         {
+            Models.HomeModel model = new Models.HomeModel(Number, Team);
             try
             {
-                DataAccess.InsertNumberForTeam(number, team);
+                DataAccess.InsertNumberForTeam(model.Number, model.Team);
             } catch(Exception e)
             {
                 throw e;
             }
-            return View(new Models.HomeModel(number, team));
+            return View(model);
         }
 
         public ActionResult About()
